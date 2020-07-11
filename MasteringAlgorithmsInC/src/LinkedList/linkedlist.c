@@ -20,11 +20,13 @@ int list_remove_next(List* list, ListElmt* element, void** data)
  * two cases: removal of an element from the head and removing an element 
  * from elsewhere.
  *
- * The process by which we remove an element is as follows. Retrieve the 
- * element for removal via the element->next or list->head assessors for
- * elsewhere or head respectively and store their data pointer into the 
- * dereferenced void** data variable. We then assign the given element's
- * next attribute to the old_element's decendant, old_element->next
+ * Generally, to remove an element from a linked list, we set the next pointer
+ * of the element preceding the one being removed to the element which follows.
+ * When removing an element from the head of a list, there is no elememt which 
+ * preceeds the element being removed. In addition, whenever we remove the element
+ * at the tail of the list, we must update the tail member of the list data 
+ * structure to point to the new tail or to null if removing the element has 
+ * caused the list to become empty.
  * */
 {
 	ListElmt* old_element;
@@ -53,6 +55,22 @@ int list_remove_next(List* list, ListElmt* element, void** data)
 }
 
 int list_insert_next(List* list, ListElmt* element, const void* data)
+/* The list_insert_next operation inserts an element into a linked list 
+ * just after the provided element. The call sets the new element to 
+ * point to the data passed by the caller.
+ *
+ * Generally, to insert an element into a linked list, we set the next
+ * pointer of the new element to point to the element it is going to 
+ * preceed, and we set the next pointer of the element provided to the 
+ * caller to the new element. When inserting an element at the head of
+ * the list, there is no element that will preceed the new element. In
+ * this case, we set the next pointer of the new element to the current
+ * head of the list, then reset the head of the list to point to the 
+ * new elememt. Additionally, when we insert an element at the tail of
+ * the list, we must update the tail member of the list structure to
+ * point to the new tail.
+ *
+ * */
 {
 	ListElmt* new_element;
 	if ((new_element = (ListElmt*)malloc(sizeof(ListElmt))) == NULL){ return -1; }
@@ -82,7 +100,7 @@ void list_destroy(List* list)
 	{
 		if (
 			list_remove_next(list, NULL, (void**)&data) == 0
-			&&                            list->destroy != NULL
+			&& list->destroy != NULL
 		   ) { list->destroy(data); }
 	}
 
