@@ -1,6 +1,8 @@
 #include "doublylinkedlist.h"
 
 void dlist_init(DList* list, void (*destroy)(void* data))
+/*
+ * */
 {
 	list->size = 0;
 	list->destroy = destroy;
@@ -8,8 +10,20 @@ void dlist_init(DList* list, void (*destroy)(void* data))
 	list->tail = NULL;
 }
 
-void dlist_destroy(DList* list);
+void dlist_destroy(DList* list)
+/*
+ * */
+{
+	void* data;
+	while (dlist_size(list) > 0)
+	{ if ( dlist_remove(list, NULL, (void**)&data) == 0 && list->destroy != NULL ) { list->destroy(data); } }
+
+	memset(list, 0, sizeof(DList)); return;
+}
+
 int dlist_insert_next(DList* list, DListElmt* element, const void* data)
+/*
+ * */
 {
 	DListElmt* new_element;
 	if (element == NULL && dlist_size(list) != 0){ return -1; }
@@ -37,6 +51,8 @@ int dlist_insert_next(DList* list, DListElmt* element, const void* data)
 }
 
 int dlist_insert_prev(DList* list, DListElmt* element, const void* data)
+/*
+ * */
 {
 	DListElmt* new_element;
 	if (element == NULL && dlist_size(list) != 0){ return -1; }
@@ -65,6 +81,8 @@ int dlist_insert_prev(DList* list, DListElmt* element, const void* data)
 	list->size++; return 0;
 }
 int dlist_remove(DList* list, DListElmt* element, void** data)
+/*
+ * */
 {
 	if (element == NULL || dlist_size(list) == 0){ return -1; }
 	*data = element->data;
