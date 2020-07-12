@@ -1,9 +1,9 @@
 #include "linkedlist.h"
 
-int main(int argc, char* argv[]) 
-{ 
-	return 0; 
-}
+// int main(int argc, char* argv[]) 
+// { 
+// 	return 0; 
+// }
 
 void list_init(List* list, void (*destroy)(void* data))
 {
