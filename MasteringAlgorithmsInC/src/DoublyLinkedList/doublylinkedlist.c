@@ -64,4 +64,22 @@ int dlist_insert_prev(DList* list, DListElmt* element, const void* data)
 
 	list->size++; return 0;
 }
-// int dlist_remove(DList* list, DListElmt* element, void** data);
+int dlist_remove(DList* list, DListElmt* element, void** data)
+{
+	if (element == NULL || dlist_size(list) == 0){ return -1; }
+	*data = element->data;
+
+	if (element == list->head)
+	{
+		list->head = element->next;
+		if (list->head == NULL) { list->tail = NULL; }
+		else { element->next->prev = NULL; }
+	}
+	else
+	{
+		element->prev->next = element->next;
+		if (element->next == NULL){ list->tail = element->prev; }
+		else { element->prev->next = element->prev; }
+	}
+	free(element); list->size--; return 0;
+}
