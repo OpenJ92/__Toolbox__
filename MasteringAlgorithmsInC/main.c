@@ -6,6 +6,7 @@
 
 #include "example/frame_management/frames.h"
 #include "example/second_chance_page_replacemet/page.h"
+#include "example/event_handling/events.h"
 
 int main(int argc, char* argv[])
 {

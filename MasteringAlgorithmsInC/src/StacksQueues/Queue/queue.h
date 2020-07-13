@@ -8,7 +8,7 @@
 typedef List Queue;
 
 int queue_enqueue(Queue* queue, const void* data);
-int queue_denqueue(Queue* queue, void** data);
+int queue_dequeue(Queue* queue, void** data);
 
 #define queue_init list_init
 #define queue_destroy list_destroy
