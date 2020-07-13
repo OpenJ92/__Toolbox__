@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "src/LinkedList/linkedlist.h"
+#include "../../src/LinkedLists/LinkedList/linkedlist.h"
 
 int alloc_frames(List* frames);
 int free_frame(List* frames, int frame_number);

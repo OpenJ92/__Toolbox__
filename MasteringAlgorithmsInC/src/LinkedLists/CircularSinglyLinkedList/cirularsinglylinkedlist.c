@@ -30,8 +30,7 @@ int clist_insert_next(CList* list, CListElmt* element, const void* data)
 	else
 	{
 		new_element->next = new_element;
-		// Think about 
-		element->head = new_element;
+		element = new_element;
 	}
 	list->size++; return 0;
 }

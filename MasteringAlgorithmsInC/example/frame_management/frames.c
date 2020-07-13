@@ -1,3 +1,5 @@
+#include "frames.h"
+
 int alloc_frames(List* frames)
 {
 	int frame_number, *data;
@@ -21,7 +23,7 @@ int alloc_frames(List* frames)
 int free_frame(List* frames, int frame_number)
 {
 	int* data;
-	if (data = (int*)malloc(sizeof(int)) == NULL){ return -1; }
+	if ((data = (int*)malloc(sizeof(int))) == NULL){ return -1; }
 	*data = frame_number;
 
 	if (list_insert_next(frames, NULL, data) != 0){ return -1; }

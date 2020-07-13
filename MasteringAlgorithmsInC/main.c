@@ -2,6 +2,9 @@
 #include "src/LinkedLists/DoublyLinkedList/doublylinkedlist.h"
 #include "src/LinkedLists/CircularSinglyLinkedList/cirularsinglylinkedlist.h"
 
+#include "example/frame_management/frames.h"
+#include "example/second_chance_page_replacemet/page.h"
+
 int main(int argc, char* argv[])
 {
 	CList* list; clist_init(list, NULL);
