@@ -1,6 +1,7 @@
 #include "src/LinkedLists/LinkedList/linkedlist.h"
 #include "src/LinkedLists/DoublyLinkedList/doublylinkedlist.h"
 #include "src/LinkedLists/CircularSinglyLinkedList/cirularsinglylinkedlist.h"
+#include "src/StacksQueues/Stack/stack.h"
 
 #include "example/frame_management/frames.h"
 #include "example/second_chance_page_replacemet/page.h"
