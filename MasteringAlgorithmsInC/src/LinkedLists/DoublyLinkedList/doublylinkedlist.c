@@ -31,7 +31,7 @@ int dlist_insert_next(DList* list, DListElmt* element, const void* data)
 {
 	DListElmt* new_element;
 	if (element == NULL && dlist_size(list) != 0){ return -1; }
-	if ((new_element = (DListElmt*)malloc(sizeof(DListElmt)) == NULL)){ return -1; }
+	if ((new_element = (DListElmt*)malloc(sizeof(DListElmt))) == NULL){ return -1; }
 
 	new_element->data = (void*)data;
 
@@ -77,7 +77,7 @@ int dlist_insert_prev(DList* list, DListElmt* element, const void* data)
 		new_element->prev = element->prev;
 		
 		if (element->prev == NULL) { list->head = new_element; }
-		else { element->prev-next = new_element; }
+		else { element->prev->next = new_element; }
 
 		element->prev = new_element;
 	}

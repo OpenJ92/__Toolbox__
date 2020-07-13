@@ -1,6 +1,9 @@
 #ifndef CSLL_H
 #define CSLL_H
 
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct CListElmt_
 {
 	void* data;

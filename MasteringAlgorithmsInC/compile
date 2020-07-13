@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+gcc main.c src/**/*.c -o main.o
