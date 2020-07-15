@@ -1,10 +1,15 @@
 #ifndef SET_H
 #define SET_H
 
-#include "../../LinkedLists/LinkedList/linkedlist.h"
+#include "../LinkedLists/LinkedList/linkedlist.h"
 
 typedef List Set;
 
+void set_init(
+		Set* set, 
+		int (*match)(const void* key1, const void* key2),
+		void (*destroy)(void *data)
+	     );
 int set_insert(Set* set, const void* data);
 int set_remove(Set* set, void** data);
 int set_union(Set* setu, Set* set1, Set* set2);
