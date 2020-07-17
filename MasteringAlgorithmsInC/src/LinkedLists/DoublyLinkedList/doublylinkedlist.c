@@ -3,8 +3,7 @@
 void dlist_init(DList* list, void (*destroy)(void* data))
 /*
  * */
-{
-	list->size = 0;
+{ list->size = 0;
 	list->destroy = destroy;
 	list->head = NULL;
 	list->tail = NULL;
@@ -13,11 +12,9 @@ void dlist_init(DList* list, void (*destroy)(void* data))
 void dlist_destroy(DList* list)
 /*
  * */
-{
-	void* data;
+{ void* data;
 	while (dlist_size(list) > 0)
 	{ if ( dlist_remove(list, NULL, (void**)&data) == 0 && list->destroy != NULL ) { list->destroy(data); } }
-
 	memset(list, 0, sizeof(DList)); return;
 }
 
@@ -57,8 +54,7 @@ int dlist_insert_next(DList* list, DListElmt* element, const void* data)
 int dlist_insert_prev(DList* list, DListElmt* element, const void* data)
 /* see dlist_insert_next docs for description.
  * */
-{
-	DListElmt* new_element;
+{ DListElmt* new_element;
 	if (element == NULL && dlist_size(list) != 0){ return -1; }
 	if ((new_element = (DListElmt*)malloc(sizeof(DListElmt))) == NULL){ return -1; }
 
@@ -92,8 +88,7 @@ int dlist_remove(DList* list, DListElmt* element, void** data)
  * element, rather than the one just after it because there is a pointer back to the 
  * previous element.
  * */
-{
-	if (element == NULL || dlist_size(list) == 0){ return -1; }
+{ if (element == NULL || dlist_size(list) == 0){ return -1; }
 	*data = element->data;
 
 	if (element == list->head)

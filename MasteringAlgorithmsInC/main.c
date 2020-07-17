@@ -4,6 +4,7 @@
 #include "src/StacksQueues/Stack/stack.h"
 #include "src/StacksQueues/Queue/queue.h"
 #include "src/Sets/set.h"
+#include "src/HashTables/ChainedHashTable.h"
 
 #include "example/frame_management/frames.h"
 #include "example/second_chance_page_replacemet/page.h"
