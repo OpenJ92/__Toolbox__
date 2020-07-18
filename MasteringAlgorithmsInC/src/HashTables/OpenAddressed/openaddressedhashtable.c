@@ -29,13 +29,30 @@ int ohtbl_lookup(OHTbl* ohtbl, void** data)
 {
 	if (ohtbl->size == 0){ return -1; }
 	int hash1 = ohtbl->h1(*data); int hash2 = ohtbl->h2(*data);
-	int index = 0; int double_hash = (hash1 + index*hash2) % chtbl->positions;
+	int index = 0; int double_hash = (hash1 + index*hash2) % ohtbl->positions;
 
-	while (!ohtbl->match(chtbl->table[double_hash], *data))
+	while (!ohtbl->match(ohtbl->table[double_hash], *data))
 	{
-		if (chtbl->table[double_hash] == NULL) { return -1 }
-		index++; double_hash = (hash1 + index*hash2) % chtbl->positions;
+		if (ohtbl->table[double_hash] == NULL) { return -1; }
+		index++; double_hash = (hash1 + index*hash2) % ohtbl->positions;
 	}
-	*data = chtbl->table[double_hash];
+	*data = ohtbl->table[double_hash]; return 0;
 }
 
+
+int ohtbl_insert(OHTbl* ohtbl, const void* data)
+{
+	if (ohtbl->size == ohtbl->positions 
+			|| ohtbl_lookup(ohtbl, (void**)&data)){ return -1; }
+	int hash1 = ohtbl->h1(data); int hash2 = ohtbl->h2(data);
+	int index = 0; int double_hash = (hash1 + index*hash2) % ohtbl->positions;
+
+	while (ohtbl->table[double_hash] != (void*)&vacated 
+			|| ohtbl->table[double_hash] != NULL)
+	{
+		index++; double_hash = (hash1 + index*hash2) % ohtbl->positions;
+	}
+	ohtbl->table[double_hash] = (void*)data; ohtbl->size++; return 0;
+}
+
+int ohtbl_remove(OHTbl* ohtbl, void** data);
