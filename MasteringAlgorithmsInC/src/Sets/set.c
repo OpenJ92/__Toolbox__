@@ -8,7 +8,8 @@ void set_init(
 { list_init(set, destroy); set->match = match; return; }
 
 int set_is_member(Set* set, const void* data)
-{ ListElmt* member;
+{ 
+	ListElmt* member;
 
 	for (member = set->head; member != NULL; member = member->next)
 	{
@@ -18,12 +19,14 @@ int set_is_member(Set* set, const void* data)
 }
 
 int set_insert(Set* set, const void* data)
-{ if (set_is_member(set, data)){ return 1; }
+{ 
+	if (set_is_member(set, data)){ return 1; }
 	return list_insert_next(set, set->tail, data);
 }
 
 int set_remove(Set* set, void** data)
-{ ListElmt* member; ListElmt* prev;
+{ 
+	ListElmt* member; ListElmt* prev;
 	prev = NULL;
 
 	for (member = set->head; member != NULL; member = member->next)
@@ -36,7 +39,8 @@ int set_remove(Set* set, void** data)
 }
 
 int set_union(Set* setu, Set* set1, Set* set2)
-{ ListElmt* member; void* data;
+{ 
+	ListElmt* member; void* data;
 	set_init(setu, set1->match, set1->destroy);
 
 	for (member = set1->head; member != NULL; member = member->next)
@@ -62,7 +66,8 @@ int set_union(Set* setu, Set* set1, Set* set2)
 }
 
 int set_intersection(Set* seti, Set* set1, Set* set2)
-{ ListElmt* member; void* data;
+{ 
+	ListElmt* member; void* data;
 	set_init(seti, set1->match, set1->destroy);
 
 	for (member = set1->head; member != NULL; member = member->next)
@@ -111,5 +116,6 @@ int set_is_subset(const Set* set1, const Set* set2)
 }
 
 int set_is_equal(const Set* set1, const Set* set2)
-{ return set_is_subset(set1, set2) && set_is_subset(set2, set1);
+{ 
+	return set_is_subset(set1, set2) && set_is_subset(set2, set1);
 }

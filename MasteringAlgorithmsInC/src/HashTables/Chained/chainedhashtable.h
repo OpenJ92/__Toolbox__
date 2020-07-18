@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "../LinkedLists/LinkedList/linkedlist.h"
+#include "../../LinkedLists/LinkedList/linkedlist.h"
 
 typedef struct CHTbl_
 {

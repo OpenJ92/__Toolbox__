@@ -1,4 +1,4 @@
-#include "ChainedHashTable.h"
+#include "chainedhashtable.h"
 
 int chtbl_init(CHTbl* chtbl, int buckets, int (*h)(const void* key),
 		int (*match)(const void* key1, const void* key2), 
@@ -29,10 +29,15 @@ int chtbl_insert(CHTbl* chtbl, const void* data)
 }
 
 int chtbl_lookup(CHTbl* chtbl, void** data)
-{ int key = chtbl->h(*data) % chtbl->buckets; List* local = chtbl->table + key;
+{ 
+	int key = chtbl->h(*data) % chtbl->buckets; List* local = chtbl->table + key;
 	for (ListElmt* member = local->head; member != NULL; member=list_next(member))
 	{
-		if ((chtbl->match(member->data, *data)) == 0){ return 0; }
+		if ((chtbl->match(member->data, *data)) == 0)
+		{ 
+			*data = member->data;
+			return 0; 
+		}
 	}
 	return -1;
 }
@@ -60,8 +65,9 @@ int chtbl_remove(CHTbl* chtbl, void** data)
 }
 
 void chtbl_destroy(CHTbl* chtbl)
-{ int bucket;
+{ 
+	int bucket;
 	for (bucket = 0; bucket < chtbl->buckets; bucket++)
 	{ list_destroy(&(chtbl->table[bucket])); }
-	free(chtbl);
+	free(chtbl->table); free(chtbl);
 }
