@@ -11,21 +11,24 @@ int chtbl_init(CHTbl* chtbl, int buckets, int (*h)(const void* key),
 	chtbl->destroy = destroy;
 	chtbl->table = NULL;
 
-	if ((chtbl->table = (List*)malloc(sizeof(List) * buckets)) != 0){ return -1; }
+	if ((chtbl->table = (List*)malloc(sizeof(List) * buckets)) == NULL)
+	{ return -1; }
 
 	for (int key = 0; key < buckets; key++)
-	{ list_init(&chtbl->table[key], chtbl->destroy); }
+	{ list_init(&chtbl->table[key], destroy); }
 
 	return 0;
 }
 
 int chtbl_insert(CHTbl* chtbl, const void* data)
 { 
-	int retval; void* temp = (void*)data; int key = chtbl->h(data) % chtbl->buckets;
+	int retval; void* temp = (void*)data; 
+	int key = chtbl->h(data) % chtbl->buckets;
+
 	if (chtbl_lookup(chtbl, &temp) == 0){ return 1; }
 	if ((retval = list_insert_next(&chtbl->table[key], NULL, data)) == 0 )
 	{ chtbl->size++; }
-	return 0;
+	return retval;
 }
 
 int chtbl_lookup(CHTbl* chtbl, void** data)
