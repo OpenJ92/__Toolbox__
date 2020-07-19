@@ -66,8 +66,12 @@ int chtbl_remove(CHTbl* chtbl, void** data)
 
 void chtbl_destroy(CHTbl* chtbl)
 { 
-	if (chtbl->destroy == NULL){ return; } int bucket;
+	if (chtbl->destroy == NULL){ return; } 
+
+	int bucket;
 	for (bucket = 0; bucket < chtbl->buckets; bucket++)
-	{ list_destroy(&(chtbl->table[bucket])); }
-	free(chtbl->table); free(chtbl);
+	{ 
+		list_destroy(&(chtbl->table[bucket])); 
+	}
+	free(chtbl->table); memset(chtbl, 0, sizeof(CHTbl)); return;
 }
