@@ -2,6 +2,7 @@
 #define BITREE_H
 
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct BiTreeNode_
 {
@@ -24,8 +25,8 @@ void bitree_init(BiTree* tree, void (*destroy)(void* data));
 void bitree_destroy(BiTree* tree);
 int bitree_insert_left(BiTree* tree, BiTreeNode* node, const void* data);
 int bitree_insert_right(BiTree* tree, BiTreeNode* node, const void* data);
-int bitree_remove_left(BiTree* tree, BiTreeNode* node);
-int bitree_remove_right(BiTree* tree, BiTreeNode* node);
+void bitree_remove_left(BiTree* tree, BiTreeNode* node);
+void bitree_remove_right(BiTree* tree, BiTreeNode* node);
 int bitree_merge(BiTree* merge, BiTree* left, BiTree* right, const void* data);
 
 #define bitree_size(tree) ((tree)->size)

@@ -10,8 +10,8 @@ void bitree_init(BiTree* tree, void (*destroy)(void* data))
 
 int bitree_insert_left(BiTree* tree, BiTreeNode* node, const void* data)
 {
-	BiTree* new_node;
-	BiTree** position;
+	BiTreeNode* new_node;
+	BiTreeNode** position;
 
 	if (node == NULL)
 	{
@@ -37,8 +37,8 @@ int bitree_insert_left(BiTree* tree, BiTreeNode* node, const void* data)
 
 int bitree_insert_right(BiTree* tree, BiTreeNode* node, const void* data)
 {
-	BiTree* new_node;
-	BiTree** position;
+	BiTreeNode* new_node;
+	BiTreeNode** position;
 
 	if (node == NULL)
 	{
@@ -62,43 +62,43 @@ int bitree_insert_right(BiTree* tree, BiTreeNode* node, const void* data)
 	tree->size++; return 0;
 }
 
-int bitree_remove_left(BiTree* tree, BiTreeNode* node)
+void bitree_remove_left(BiTree* tree, BiTreeNode* node)
 {
 	BiTreeNode** position;
-	if (tree->size == 0){ return -1; }
+	if (tree->size == 0){ return; }
 	if (node == NULL){ position = &tree->root; }
 	else { position = &node->left; }
 
 	if (position != NULL)
 	{
-		bitree_remove_left(tree, *postion);
-		bitree_remove_right(tree, *postion);
+		bitree_remove_left(tree, *position);
+		bitree_remove_right(tree, *position);
 		if (tree->destroy != NULL)
 		{
 			tree->destroy((*position)->data);
 		}
-		free(*positon); *position = NULL; tree->size--;
+		free(*position); *position = NULL; tree->size--;
 	}
 
 	return;
 }
 
-int bitree_remove_right(BiTree* tree, BiTreeNode* node)
+void bitree_remove_right(BiTree* tree, BiTreeNode* node)
 {
 	BiTreeNode** position;
-	if (tree->size == 0){ return -1; }
+	if (tree->size == 0){ return; }
 	if (node == NULL){ position = &tree->root; }
 	else { position = &node->right; }
 
 	if (position != NULL)
 	{
-		bitree_remove_left(tree, *postion);
-		bitree_remove_right(tree, *postion);
+		bitree_remove_right(tree, *position);
+		bitree_remove_left(tree, *position);
 		if (tree->destroy != NULL)
 		{
 			tree->destroy((*position)->data);
 		}
-		free(*positon); *position = NULL; tree->size--;
+		free(*position); *position = NULL; tree->size--;
 	}
 
 	return;
