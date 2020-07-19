@@ -1,1 +1,1 @@
-#include "bianarytree.h"
+#include "binarytree.h"

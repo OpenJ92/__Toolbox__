@@ -5,6 +5,8 @@
 #include "src/StacksQueues/Queue/queue.h"
 #include "src/Sets/set.h"
 #include "src/HashTables/Chained/chainedhashtable.h"
+#include "src/HashTables/OpenAddressed/openaddressedhashtable.h"
+#include "src/Trees/BinaryTree/binarytree.h"
 
 #include "example/frame_management/frames.h"
 #include "example/second_chance_page_replacemet/page.h"
