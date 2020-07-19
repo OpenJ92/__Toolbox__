@@ -6,7 +6,7 @@
 #include "../../LinkedLists/LinkedList/linkedlist.h"
 
 typedef struct CHTbl_
-{
+{ 
 	int buckets;
 	int (*h)(const void* key);
 	int (*match)(const void* key1, const void* key2);

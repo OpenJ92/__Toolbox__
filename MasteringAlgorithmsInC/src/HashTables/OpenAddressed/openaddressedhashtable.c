@@ -27,32 +27,68 @@ int ohtbl_init(OHTbl* ohtbl, int positions, int (*h1)(const void* key),
 
 int ohtbl_lookup(OHTbl* ohtbl, void** data)
 {
-	if (ohtbl->size == 0){ return -1; }
-	int hash1 = ohtbl->h1(*data); int hash2 = ohtbl->h2(*data);
-	int index = 0; int double_hash = (hash1 + index*hash2) % ohtbl->positions;
-
-	while (!ohtbl->match(ohtbl->table[double_hash], *data))
+	for (int index = 0; index < ohtbl->positions; index++)
 	{
-		if (ohtbl->table[double_hash] == NULL) { return -1; }
-		index++; double_hash = (hash1 + index*hash2) % ohtbl->positions;
-	}
-	*data = ohtbl->table[double_hash]; return 0;
-}
+		int position =
+		(ohtbl->h1(data) + (index + ohtbl->h2(data))) % ohtbl->positions;
 
+		if (ohtbl->table[position] == NULL){ return -1; }
+		else if (ohtbl->match(*data, ohtbl->table[position]))
+		{
+			*data = ohtbl->table[position]; return 0;
+		}
+	}
+	return -1;
+}
 
 int ohtbl_insert(OHTbl* ohtbl, const void* data)
 {
-	if (ohtbl->size == ohtbl->positions 
-			|| ohtbl_lookup(ohtbl, (void**)&data)){ return -1; }
-	int hash1 = ohtbl->h1(data); int hash2 = ohtbl->h2(data);
-	int index = 0; int double_hash = (hash1 + index*hash2) % ohtbl->positions;
+	if (ohtbl->size == ohtbl->positions){ return -1; }
+	if (ohtbl_lookup(ohtbl, (void**)&data) == 0){ return -1; }
 
-	while (ohtbl->table[double_hash] != (void*)&vacated 
-			|| ohtbl->table[double_hash] != NULL)
+	for (int index = 0; index < ohtbl->positions; index++)
 	{
-		index++; double_hash = (hash1 + index*hash2) % ohtbl->positions;
+		int position = 
+		(ohtbl->h1(data) + (index + ohtbl->h2(data))) % ohtbl->positions;
+
+		if (ohtbl->table[position] == NULL
+			|| ohtbl->table[position] == ohtbl->vacated)
+		{
+			ohtbl->table[position] = (void*)data;
+			ohtbl->size++; return 0;
+		}
 	}
-	ohtbl->table[double_hash] = (void*)data; ohtbl->size++; return 0;
+	return -1;
 }
 
-int ohtbl_remove(OHTbl* ohtbl, void** data);
+int ohtbl_remove(OHTbl* ohtbl, void** data)
+{
+	for (int index = 0; index < ohtbl->positions; index++)
+	{
+		if (ohtbl->table[index] == NULL){ return -1; }
+		else if (ohtbl->table[index] == ohtbl->vacated){ return -1; }
+		else if (ohtbl->match(&data, ohtbl->table[index]))
+		{
+			*data = ohtbl->table[index];
+			ohtbl->table[index] = ohtbl->vacated;
+			ohtbl->size--; return 0;
+		}
+	}
+	return -1;
+}
+
+void ohtbl_destroy(OHTbl* ohtbl)
+{
+	if (ohtbl->destroy != NULL)
+	{
+		for (int index = 0; index < ohtbl->positions; index++)
+		{
+			if (ohtbl->table[index] != NULL 
+				&& ohtbl->table[index] != ohtbl->vacated)
+			{
+				ohtbl->destroy(ohtbl->table[index]);
+			}
+		}
+	}
+	free(ohtbl->table); memset(ohtbl, 0, sizeof(OHTbl)); return;
+}

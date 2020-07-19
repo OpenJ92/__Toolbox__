@@ -1,10 +1,11 @@
 #ifndef OHTBL_H
 #define OHTBL_H
 
+#include <string.h>
 #include <stdlib.h>
 
 typedef struct OHTbl_
-{
+{  
 	int positions;
 	void* vacated;
 
