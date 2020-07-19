@@ -14,6 +14,11 @@
 
 int main(int argc, char* argv[])
 {
-	CList* list; clist_init(list, NULL);
+
+	List* list; DList* doubly; CList* cycle; 
+	Stack* stack; Queue* queue; Set* set;
+	CHTbl chained; OHTbl* openaddress;
+	BiTree bitree;
+
 	return 0;
 }
