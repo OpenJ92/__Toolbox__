@@ -330,3 +330,26 @@ void bistree_init(BisTree* tree,
 	tree->compare = compare;
 	return;
 }
+
+void bistree_destroy(BisTree* tree)
+{
+	destroy_left(tree, NULL);
+	memset(tree, 0, sizeof(BisTree));
+	return;
+}
+
+int bistree_insert(BisTree* tree, const void* data)
+{
+	int balanced = 0;
+	return insert(tree, &bitree_root(tree), data, &balanced);
+}
+
+int bistree_remove(BisTree* tree, const void* data)
+{
+	return hide(tree, bitree_root(tree), data);
+}
+
+int bistree_lookup(BisTree* tree, void** data)
+{
+	return lookup(tree, bitree_root(tree), data);
+}
