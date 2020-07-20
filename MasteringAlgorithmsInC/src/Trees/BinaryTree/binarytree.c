@@ -65,7 +65,9 @@ int bitree_insert_right(BiTree* tree, BiTreeNode* node, const void* data)
 void bitree_remove_left(BiTree* tree, BiTreeNode* node)
 {
 	BiTreeNode** position;
+
 	if (tree->size == 0){ return; }
+
 	if (node == NULL){ position = &tree->root; }
 	else { position = &node->left; }
 
@@ -86,7 +88,9 @@ void bitree_remove_left(BiTree* tree, BiTreeNode* node)
 void bitree_remove_right(BiTree* tree, BiTreeNode* node)
 {
 	BiTreeNode** position;
+
 	if (tree->size == 0){ return; }
+
 	if (node == NULL){ position = &tree->root; }
 	else { position = &node->right; }
 
