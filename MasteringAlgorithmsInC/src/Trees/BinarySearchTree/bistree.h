@@ -27,10 +27,6 @@ int bistree_insert(BisTree* tree, const void* data);
 int bistree_remove(BisTree* tree, const void* data);
 int bistree_lookup(BisTree* tree, void** data);
 
-static void rotate_left(BiTreeNode** node);
-static void rotate_right(BiTreeNode** node);
-static void destroy_left(BisTree* tree, BiTreeNode* node);
-static void destroy_right(BisTree* tree, BiTreeNode* node);
 
 #define bistree_size ((tree)->size)
 
