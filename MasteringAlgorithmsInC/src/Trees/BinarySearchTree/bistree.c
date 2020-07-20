@@ -114,8 +114,8 @@ static void destroy_left(BisTree* tree, BiTreeNode* node)
 
 	if (bitree_size(tree) == 0){ return; }
 
-	if (*node == NULL){ position = &tree->root; }
-	else { postion = &tree->left; }
+	if (node == NULL){ position = &tree->root; }
+	else { position = &node->left; }
 
 	if (*position != NULL)
 	{
@@ -127,7 +127,7 @@ static void destroy_left(BisTree* tree, BiTreeNode* node)
 			tree->destroy(((AvlNode*)(*position)->data)->data);
 		}
 
-		free((*postion)->data);
+		free((*position)->data);
 		free(*position);
 		*position = NULL;
 		tree->size--;
@@ -141,8 +141,8 @@ static void destroy_right(BisTree* tree, BiTreeNode* node)
 
 	if (bitree_size(tree) == 0){ return; }
 
-	if (*node == NULL){ position = &tree->root; }
-	else { postion = &tree->; }
+	if (node == NULL){ position = &tree->root; }
+	else { position = &node->right; }
 
 	if (*position != NULL)
 	{
@@ -154,10 +154,13 @@ static void destroy_right(BisTree* tree, BiTreeNode* node)
 			tree->destroy(((AvlNode*)(*position)->data)->data);
 		}
 
-		free((*postion)->data);
+		free((*position)->data);
 		free(*position);
 		*position = NULL;
 		tree->size--;
 	}
 	return;
 }
+
+static int insert(BisTree* tree, BiTreeNode* node, const void* data, int* balanced)
+{ return 0; }
