@@ -51,6 +51,7 @@ int inorder(const BiTreeNode* node, List* list)
 	}
 	return 0;
 }
+
 int postorder(const BiTreeNode* node, List* list)
 {
 	if (!(node == NULL))
