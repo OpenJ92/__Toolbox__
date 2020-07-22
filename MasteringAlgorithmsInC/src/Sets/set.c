@@ -84,6 +84,7 @@ int set_intersection(Set* seti, Set* set1, Set* set2)
 
 	return 0;
 }
+
 int set_difference(Set* setd, Set* set1, Set* set2)
 { ListElmt* member; void* data;
 	set_init(setd, set1->match, set1->destroy);
