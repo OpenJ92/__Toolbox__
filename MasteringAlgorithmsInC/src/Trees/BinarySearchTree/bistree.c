@@ -339,7 +339,7 @@ void bistree_destroy(BisTree* tree)
 }
 
 int bistree_insert(BisTree* tree, const void* data)
-
+{
 	int balanced = 0;
 	return insert(tree, &bitree_root(tree), data, &balanced);
 }

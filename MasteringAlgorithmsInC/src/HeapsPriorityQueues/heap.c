@@ -23,7 +23,7 @@ void heap_destroy(Heap* heap)
 	{
 		for (int node = 0; node < heap_size(heap); node++)
 		{
-			heap->destroy(heap->tree[node])
+			heap->destroy(heap->tree[node]);
 		}
 	}
 	free(heap->tree);
@@ -33,8 +33,8 @@ void heap_destroy(Heap* heap)
 
 int heap_insert(Heap* heap, const void* data)
 { 
-	void* temp
-	if (temp = realloc(heap->tree, (heap_size(heap) + 1) * sizeof(void*)) == NULL){ return -1; }
+	void* temp;
+	if ((temp = realloc(heap->tree, (heap_size(heap) + 1) * sizeof(void*))) == NULL){ return -1; }
 	else { heap->tree = temp; }
 
 	heap->tree[heap_size(heap)] = (void*)data;
@@ -69,7 +69,7 @@ int heap_extract(Heap* heap, void** data)
 
 	if (heap_size(heap) - 1 > 0)
 	{
-		if (temp = realloc(heap->tree, (heap_size(heap) + 1) * sizeof(void*)) == NULL){ return -1; }
+		if ((temp = realloc(heap->tree, (heap_size(heap) - 1) * sizeof(void*))) == NULL){ return -1; }
 		else { heap->tree = temp; }
 		heap->size--;
 	}

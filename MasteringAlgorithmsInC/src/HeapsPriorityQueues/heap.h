@@ -17,6 +17,6 @@ void heap_destroy(Heap* heap);
 int heap_insert(Heap* heap, const void* data);
 int heap_extract(Heap* heap, void** data);
 
-#define heap_size ((heap)->size)
+#define heap_size(heap) ((heap)->size)
 
 #endif
