@@ -14,6 +14,8 @@ int alloc_frames(List* frames)
 		else
 		{
 			frame_number = *data;
+			// There's a problem with trying to free a 
+			// pointer that's not been allocated.
 			// free(data);
 		}
 	}
@@ -49,4 +51,6 @@ int main(int argc, char* argv[])
 		int frame = (int)alloc_frames(list);
 		printf("Recieved frame: %i\n", frame);
 	}
+	
+	list_destroy(list); free(list); list = NULL;
 }
