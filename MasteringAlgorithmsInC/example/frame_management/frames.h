@@ -2,6 +2,7 @@
 #define FRAMES_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "../../src/LinkedLists/LinkedList/linkedlist.h"
 

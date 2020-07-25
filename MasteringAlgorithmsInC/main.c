@@ -7,18 +7,18 @@
 #include "src/HashTables/Chained/chainedhashtable.h"
 #include "src/HashTables/OpenAddressed/openaddressedhashtable.h"
 #include "src/Trees/BinaryTree/binarytree.h"
+#include "src/Graph/graph.h"
 
-#include "example/frame_management/frames.h"
-#include "example/second_chance_page_replacemet/page.h"
-#include "example/event_handling/events.h"
+#include <stdio.h>
+
+void __destroy__(void* data){ return; }
+int __match__(const void* key1, const void* key2){ return 0;}
 
 int main(int argc, char* argv[])
 {
 
-	List* list; DList* doubly; CList* cycle; 
-	Stack* stack; Queue* queue; Set* set;
-	CHTbl chained; OHTbl* openaddress;
-	BiTree bitree;
-
+	List* list = (List*)malloc(sizeof(List)); 
+	list_init(list, NULL);
+	list_destroy(list);
 	return 0;
 }
