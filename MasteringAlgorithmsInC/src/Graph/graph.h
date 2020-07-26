@@ -20,7 +20,7 @@ typedef struct Graph_
 	int (*match)(const void* key1, const void* key2);
 	void (*destroy)(void* data);
 
-	List* adjlists;
+	List adjlists;
 } Graph;
 
 typedef enum VertexColor_ { white, gray, black } VertexColor;

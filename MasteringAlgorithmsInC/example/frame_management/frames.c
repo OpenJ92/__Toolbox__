@@ -31,26 +31,3 @@ int free_frame(List* frames, int frame_number)
 	if (list_insert_next(frames, NULL, data) != 0){ return -1; }
 	return 0;
 }
-
-int main(int argc, char* argv[])
-{
-	List* list;
-	if ((list = (List*)malloc(sizeof(List))) == NULL){ return -1; }
-	list_init(list, NULL);
-
-	int frames[10];
-
-	for (int node = 0; node < 10; node++)
-	{
-		frames[node] = node;
-		list_insert_next(list, NULL, &frames[node]);
-	}
-
-	for (int node = 0; node < 10; node++)
-	{
-		int frame = (int)alloc_frames(list);
-		printf("Recieved frame: %i\n", frame);
-	}
-	
-	list_destroy(list); free(list); list = NULL;
-}

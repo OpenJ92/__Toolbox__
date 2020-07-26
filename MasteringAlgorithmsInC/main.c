@@ -17,8 +17,6 @@ int __match__(const void* key1, const void* key2){ return 0;}
 int main(int argc, char* argv[])
 {
 
-	List* list = (List*)malloc(sizeof(List)); 
-	list_init(list, NULL);
-	list_destroy(list);
+	Graph graph; graph_init(&graph, __match__, __destroy__);
 	return 0;
 }
