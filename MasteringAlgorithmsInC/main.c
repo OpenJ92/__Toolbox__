@@ -1,4 +1,4 @@
-#include "test/LinkedLists/test_linkedlist.h"
+#include "test/tests.h"
 
 #include <stdio.h>
 
@@ -10,7 +10,7 @@ int __match__(const void* key1, const void* key2){ return 0;}
 int main(int argc, char* argv[])
 {
 	int retval;
-	if ((retval = test_data_structures()) == 0) { printf("All tests passed!"); };
+	if ((retval = test_data_structures()) == 0) { printf("All tests passed!\n"); };
 	return 0;
 }
 
