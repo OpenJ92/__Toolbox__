@@ -16,7 +16,8 @@ int __match__(const void* key1, const void* key2){ return 0;}
 
 int main(int argc, char* argv[])
 {
-
 	Graph graph; graph_init(&graph, __match__, __destroy__);
+	int datas[10]; for (int i = 0; i < 10; i++) { datas[i] = i; }
+	for (int i = 0; i < 10; i++) { graph_insert_vertex(&graph, &datas[i]); }
 	return 0;
 }

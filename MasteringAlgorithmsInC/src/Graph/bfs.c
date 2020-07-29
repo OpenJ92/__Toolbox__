@@ -41,7 +41,7 @@ int bfs(Graph* graph, BfsVertex* start, List* hops)
 
 	while (queue_size(&queue) > 0)
 	{
-		adjlist = queue_peak(&queue);
+		adjlist = queue_peek(&queue);
 
 		for (member = list_head(&adjlist->adjacent); member != NULL; member = list_next(member))
 		{
