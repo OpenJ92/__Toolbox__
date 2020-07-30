@@ -2,3 +2,5 @@
 .DS_Store
 tags
 main.o.dSYM
+build/
+lib/
