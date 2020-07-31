@@ -4,15 +4,14 @@ test: libraries
 
 libraries: StacksQueues LinkedLists HashTables Trees HeapsPriorityQueues Graph
 
-StacksQueues: linkedlist.o stack.o queue.o
-	ar -cvq libSQ.a linkedlist.o stack.o queue.o
-
 LinkedLists: linkedlist.o cirularsinglylinkedlist.o doublylinkedlist.o set.o
 	ar -cvq libLL.a linkedlist.o cirularsinglylinkedlist.o doublylinkedlist.o set.o
 
 TESTLL: test_linkedlist.o
-	gcc -o TESTLL linkedlist.o test_linkedlist.o
-	./TESTLL
+	gcc -g -o TESTLL linkedlist.o test_linkedlist.o 
+
+StacksQueues: linkedlist.o stack.o queue.o
+	ar -cvq libSQ.a linkedlist.o stack.o queue.o
 
 test_linkedlist.o: linkedlist.o
 	gcc test/LinkedLists/test_linkedlist.c -c

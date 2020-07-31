@@ -1,5 +1,7 @@
 #include "linkedlist.h"
 
+#include <stdio.h>
+
 void list_init(List* list, void (*destroy)(void* data))
 { 	
 	list->size    = 0;
