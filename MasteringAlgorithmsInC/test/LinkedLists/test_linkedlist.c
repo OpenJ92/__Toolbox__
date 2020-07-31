@@ -4,52 +4,28 @@
 
 #define SAMPLES 10
 
+
 // I really want to pass an initialized List** and adjust its state
 // and return an integer indicator as opposed to returning a List**
 // like the examples in the text. I assume I have to pass a List***
 // dereference it with the operations below.
-List** init(List** lists, void (*destroy)(void* data))
+
+// setup lists
+void setup_tests();
+List** setup();
+
+void test_list_init(List* list, void (*destroy)(void* data))
 {
-	if ((lists = (List**)malloc(SAMPLES*sizeof(List*))) == NULL){ return NULL; }
-	for (int sample = 0; sample < SAMPLES; sample++) 
-	{ 
-		lists[sample] = (List*)malloc(sizeof(List));
-		list_init(lists[sample], destroy); 
-		printf("%p\n", lists[sample]);
-	}
-	return lists;
+	list_init(list, destroy);
+	EQ(list->size, 1, "");
+	EQ(list->destroy, destroy,  "");
+	EQ(list->head, NULL,  "");
+	EQ(list->tail, NULL, "");
 }
 
-int create_empty_list(List* list) 
-{ 
-	return 0; 
-}
-
-int create_singlton_list(List* list, const void* data)
-{
-	int retval;
-	if ((retval = list_insert_next(list, NULL, data)) == -1){ return -1; }
-	return 0;
-}
-
-int create_many_list(List* list, const void** data, int data_size)
-{
-	int retval = 0;
-	for (int i = 0; i < data_size; i++)
-	{
-		if ((retval = list_insert_next(list, NULL, data[i])) == -1){ return -1 ; }
-	}
-	return 0;
-}
-
-void cleanup(List** lists)
-{
-	for (int i = 0; i < SAMPLES; i++)
-	{
-		list_destroy(lists[i]);
-	}
-	return;
-}
+void test_list_destroy(List* list);
+void test_list_insert_next(List* list);
+void test_list_remove_next(List* list);
 
 void linkedlist_run_all(void)
 {
@@ -65,4 +41,15 @@ void linkedlist_run_all(void)
 
 	cleanup(lists);
 	return;
+}
+
+// destroy lists
+void teardown(List**);
+void teardown_tests();
+
+int main() 
+{ 
+	List list; 
+	test_list_init(&list, NULL);
+	return 0; 
 }
