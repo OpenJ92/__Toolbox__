@@ -11,8 +11,7 @@ static int lookup(BisTree* tree, BiTreeNode* node, void** data);
 // Wow! This is very complicated. Come back and spend some time drawing 
 // out this implementation of rotation with Lx configuration.
 static void rotate_left(BiTreeNode** node)
-{
-	BiTreeNode* left; BiTreeNode* grandchild;
+{ BiTreeNode* left; BiTreeNode* grandchild;
 	left = bitree_left(*node);
 
 	if (((AvlNode*)bitree_data(left))->factor == AVL_LFT_HEAVY)
@@ -282,7 +281,7 @@ static int insert(BisTree* tree, BiTreeNode** node, const void* data, int* balan
 }
 
 static int hide(BisTree* tree, BiTreeNode* node, const void* data)
-{
+{ 
 	int cmpval; int retval;
 	if (bitree_eob(node)){ return -1; }
 
@@ -299,7 +298,7 @@ static int hide(BisTree* tree, BiTreeNode* node, const void* data)
 }
 
 static int lookup(BisTree* tree, BiTreeNode* node, void** data)
-{
+{ 
 	int cmpval; int retval;
 	if (bitree_eob(node)){ return -1; }
 
@@ -325,7 +324,7 @@ static int lookup(BisTree* tree, BiTreeNode* node, void** data)
 void bistree_init(BisTree* tree, 
 		int (*compare)(const void* key1, const void* key2),
 		void (*destroy)(void* data))
-{
+{ 
 	bitree_init(tree, destroy);
 	tree->compare = compare;
 	return;

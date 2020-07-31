@@ -1,17 +1,17 @@
 # -*- Makefile -*-
-all: StacksQueues LinkedLists HashTables
+libraries: StacksQueues LinkedLists HashTables
 
-StacksQueues: main.o linkedlist.o stack.o queue.o
+test:
+	echo "Hello, world!"
+
+StacksQueues: linkedlist.o stack.o queue.o
 	ar -cvq libSQ.a linkedlist.o stack.o queue.o
 
-LinkedLists: main.o linkedlist.o cirularsinglylinkedlist.o doublylinkedlist.o set.o
+LinkedLists: linkedlist.o cirularsinglylinkedlist.o doublylinkedlist.o set.o
 	ar -cvq libLL.a linkedlist.o cirularsinglylinkedlist.o doublylinkedlist.o set.o
 
-HashTables: main.o linkedlist.o chainedhashtable.o openaddressedhashtable.o
+HashTables: linkedlist.o chainedhashtable.o openaddressedhashtable.o
 	ar -cvq libHT.a linkedlist.o chainedhashtable.o openaddressedhashtable.o
-
-main.o:
-	gcc main.c -c
 
 openaddressedhashtable.o:
 	gcc src/HashTables/OpenAddressed/openaddressedhashtable.c -c
