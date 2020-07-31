@@ -1,6 +1,6 @@
 # -*- Makefile -*-
 test: libraries
-	gcc libHT.a libSQ.a libLL.a main.c -o run.o
+	gcc libHT.a libSQ.a libLL.a libHQ.a libTR.a main.c -o run.o
 
 libraries: StacksQueues LinkedLists HashTables Trees HeapsPriorityQueues Graph
 

@@ -1,21 +1,29 @@
+#include <stdio.h>
 #include "cirularsinglylinkedlist.h"
 
 void clist_init(CList* list, void (*destroy)(void *data))
-{ list->size = 0;
+{ 	
+	list->size = 0;
 	list->destroy = destroy;
 	list->head = NULL;
 }
 
 
 void clist_destroy(CList* list)
-{ void* data;
+{ 	
+	void* data;
+	if (list->destroy == NULL){ return; }
 	while (list->size > 0)
-	{ if (list->destroy != NULL && clist_remove_next(list, NULL, (void**)&data)){ list->destroy(data); } }
+	{ 
+		if (clist_remove_next(list, NULL, (void**)&data)){ list->destroy(data); } 
+	  	else { break; }
+	}
 	memset(list, 0, sizeof(CList)); return;
 }
 
 int clist_insert_next(CList* list, CListElmt* element, const void* data)
-{ CListElmt* new_element;
+{ 
+	CListElmt* new_element;
 	if ((new_element = (CListElmt*)malloc(sizeof(CListElmt))) == NULL){ return -1; }
 	new_element->data = (void*)data;
 
