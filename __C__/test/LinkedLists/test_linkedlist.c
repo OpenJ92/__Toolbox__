@@ -25,6 +25,25 @@ List** setup(void)
 	return lists; 
 }
 
+void initialize(List** lists, void (*destroy)(void* data))
+{
+	for (int sample = 0; sample < SAMPLES; sample++)
+	{
+		List* list = lists[sample];
+		list_init(list, destroy);
+	}
+	return;
+}
+
+void populate(List* list, const void** data, int data_size)
+{
+	if (data == NULL) { return; }
+	for (int element = data_size-1; element <= 0; element--)
+	{
+		list_insert_next(list, NULL, element);
+	}
+}
+
 void test_list_init(void (*destroy)(void* data))
 {
 	Lists** lists = setup();
@@ -45,17 +64,27 @@ void test_list_init(void (*destroy)(void* data))
 void test_list_insert_next(void)
 {
 	Lists** lists = setup();
+	initialize(lists, NULL); 
+	List* list = populate(lists[0], NULL, 0);
+
+	int data = 1; int* ptr = &data;
+	list_insert_next(list, NULL, (const void*)ptr);
+	EQ(&list->head->data, (void*)ptr, "");
+	EQ(&list->tail->data, (void*)ptr, "");
+
 	teardown(lists)
 }
 
 void test_list_remove_next(void);
 {
 	Lists** lists = setup();
+	initialize(lists);
 	teardown(lists)
 }
 void test_list_destroy(void);
 {
 	Lists** lists = setup();
+	initialize(lists);
 	teardown(lists)
 }
 
@@ -78,7 +107,7 @@ void teardown_tests();
 
 int main() 
 { 
-	List list; 
 	test_list_init(&list, NULL);
+	test_list_insert_next();
 	return 0; 
 }
