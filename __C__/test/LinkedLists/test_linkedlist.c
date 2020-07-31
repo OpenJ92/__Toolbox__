@@ -69,8 +69,18 @@ void test_list_insert_next(void)
 
 	int data = 1; int* ptr = &data;
 	list_insert_next(list, NULL, (const void*)ptr);
-	EQ(&list->head->data, (void*)ptr, "");
-	EQ(&list->tail->data, (void*)ptr, "");
+	EQ(list->head->data, (void*)ptr, "");
+	EQ(list->tail->data, (void*)ptr, "");
+
+	int data2 = 2; int* ptr2 = &data2;
+	list_insert_next(list, list->head, (const void*)ptr2);
+	EQ(list->head->next, list->tail, "");
+	EQ(list->tail->next, NULL, "");
+
+	int data3 = 3; int* ptr3 = &data;
+	list_insert_next(list, list->tail, (const void*)ptr3);
+	EQ(list->head->next->data, (void*)ptr3, "");
+	EQ(list->head->next->next, list->tail, "");
 
 	teardown(lists)
 }
