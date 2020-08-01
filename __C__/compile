@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-gcc main.c test/tests.c test/**/*.c src/**/*.c example/**/*.c -g -o main.o
