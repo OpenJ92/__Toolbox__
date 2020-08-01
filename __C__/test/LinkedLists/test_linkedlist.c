@@ -81,7 +81,7 @@ void test_list_insert_next(void)
 	List* list = lists[0];
 
 	int data = 1; int* ptr = &data;
-	list_insert_next(list, NULL, (const void*)ptr);
+	int retval = list_insert_next(list, NULL, (const void*)ptr);
 	EQ(list->head->data, (void*)ptr, "");
 	EQ(list->tail->data, (void*)ptr, "");
 	EQ(list->size, 1, "");
@@ -109,13 +109,16 @@ void test_list_remove_next(void)
 
 	void* container = NULL;
 	int data[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+	int data2[1] = {1};
 
 	populate(lists[0], NULL, 0);
 	populate(lists[1], (const void**)&data, 10);
+	populate(lists[2], (const void**)&data, 1);
 
 	EQ(list_remove_next(lists[0], NULL, &container), -1, "");
 	EQ(list_remove_next(lists[1], NULL, &container), 0, "");
 	EQ(list_remove_next(lists[1], lists[1]->head, &container), 0, "");
+	EQ(list_remove_next(lists[2], lists[2]->tail, &container), -1, "");
 
 	teardown(lists);
 	printf("\ttest_list_remove_next: complete\n");

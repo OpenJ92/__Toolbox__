@@ -24,7 +24,11 @@ void clist_destroy(CList* list)
 int clist_insert_next(CList* list, CListElmt* element, const void* data)
 { 
 	CListElmt* new_element;
-	if ((new_element = (CListElmt*)malloc(sizeof(CListElmt))) == NULL){ return -1; }
+	if ((new_element = (CListElmt*)malloc(sizeof(CListElmt))) == NULL)
+	{ 
+		return -1; 
+	}
+
 	new_element->data = (void*)data;
 
 	if (clist_size(list) == 0)
@@ -34,14 +38,15 @@ int clist_insert_next(CList* list, CListElmt* element, const void* data)
 	}
 	else
 	{
-		new_element->next = new_element;
-		element = new_element;
+		new_element->next = element->next;
+		element->next = new_element;
 	}
 	list->size++; return 0;
 }
 
 int clist_remove_next(CList* list, CListElmt* element, void** data)
-{ CListElmt* old_element;
+{ 	
+	CListElmt* old_element;
 	if (clist_size(list) == 0){ return -1; }
 
 	*data = element->next->data;

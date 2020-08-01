@@ -68,7 +68,29 @@ void test_clist_init(void (*destroy)(void *data))
 	printf("\ttest_clist_init: complete\n");
 }
 
-int test_clist_insert_next(CList* list, CListElmt* element, const void* data);
+void test_clist_insert_next()
+{
+	CList** lists = setup();
+	initialize(lists, NULL);
+	CList* list = lists[0];
+	int data[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+	int retvals[4]; 
+
+	retvals[0] = clist_insert_next(list, NULL, (const void*)&data[0]);
+	EQ(list->head->data, (void*)&data[0], "");
+	EQ(list->head->next, list->head, "");
+	EQ(list->size, 1, "");
+
+	retvals[1] = clist_insert_next(list, list->head, (const void*)&data[1]);
+	printf("\t%p : %p\n", list->head->next->data, (void*)&data[1]);
+	//EQ(list->head->next->data, (void*)&data[1], "");
+	EQ(list->head->next->next, list->head, "");
+	EQ(list->size, 2, "");
+
+	teardown(lists);
+	printf("\ttest_clist_insert_next: complete\n");
+}
+
 int test_clist_remove_next(CList* list, CListElmt* element, void** data);
 void test_clist_destroy(CList* list);
 
@@ -77,6 +99,7 @@ int main()
 { 
 	printf("TEST: Circular Linked Lists\n");
 	test_clist_init(NULL);
+	test_clist_insert_next();
 	printf("\n");
 
 	return 0; 
