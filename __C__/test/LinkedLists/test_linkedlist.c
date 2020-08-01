@@ -1,5 +1,4 @@
 #include "test_linkedlist.h"
-
 #include <stdio.h>
 
 #define SAMPLES 3
@@ -72,6 +71,7 @@ void test_list_init(void (*destroy)(void* data))
 	}
 
 	teardown(lists);
+	printf("\ttest_list_init: complete\n");
 }
 
 void test_list_insert_next(void)
@@ -99,6 +99,7 @@ void test_list_insert_next(void)
 	EQ(list->size, 3, "");
 
 	teardown(lists);
+	printf("\ttest_list_insert_next: complete\n");
 }
 
 void test_list_remove_next(void)
@@ -117,6 +118,7 @@ void test_list_remove_next(void)
 	EQ(list_remove_next(lists[1], lists[1]->head, &container), 0, "");
 
 	teardown(lists);
+	printf("\ttest_list_remove_next: complete\n");
 }
 
 void test_list_destroy(void)
@@ -130,14 +132,27 @@ void test_list_destroy(void)
 	populate(lists[1], (const void**)&data, 10);
 	populate(lists[2], (const void**)&data2, 1);
 
+	for (int sample = 0; sample < SAMPLES; sample++)
+	{
+		list_destroy(lists[sample]);	
+
+		EQ(lists[sample]->size, 0, "");
+		EQ(lists[sample]->head, NULL, "");
+		EQ(lists[sample]->tail, NULL, "");
+	}
+
 	teardown(lists);
+	printf("\ttest_list_destroy: complete\n");
 }
 
 int main() 
 { 
+	printf("TEST: Linked Lists\n");
 	test_list_init(NULL);
 	test_list_insert_next();
 	test_list_remove_next();
+	test_list_destroy();
+	printf("\n");
 
 	return 0; 
 }

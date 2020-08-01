@@ -99,10 +99,10 @@ void list_destroy(List* list)
 {
 	void* data;
 
-	if (list->destroy == NULL) { return; }
 	while (list_size(list) > 0)
 	{
-		if (list_remove_next(list, NULL, (void**)&data) == 0) { list->destroy(data); }
+		if (list_remove_next(list, NULL, (void**)&data) == 0 && list->destroy != NULL) 
+		{ list->destroy(data); }
 	}
 
 	memset(list, 0, sizeof(List)); return;
