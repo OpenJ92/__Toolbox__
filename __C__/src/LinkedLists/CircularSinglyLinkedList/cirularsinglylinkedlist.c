@@ -12,11 +12,16 @@ void clist_init(CList* list, void (*destroy)(void *data))
 void clist_destroy(CList* list)
 { 	
 	void* data;
-	if (list->destroy == NULL){ return; }
 	while (list->size > 0)
 	{ 
-		if (clist_remove_next(list, NULL, (void**)&data)){ list->destroy(data); } 
-	  	else { break; }
+		if (clist_remove_next(list, list->head, (void**)&data))
+		{ 
+
+			if (list->destroy != NULL)
+			{ 
+				list->destroy(data); 
+			}
+		} 
 	}
 	memset(list, 0, sizeof(CList)); return;
 }
@@ -59,7 +64,10 @@ int clist_remove_next(CList* list, CListElmt* element, void** data)
 	{
 		old_element = element->next;
 		element->next = old_element->next;
-		if (old_element == clist_head(list)){ list->head = old_element->next; }
+		if (old_element == clist_head(list))
+		{ 
+			list->head = old_element->next; 
+		}
 	}
 	free(old_element); list->size--; return 0;
 }

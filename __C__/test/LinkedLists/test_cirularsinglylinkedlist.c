@@ -42,12 +42,12 @@ void initialize(CList** lists, void (*destroy)(void* data))
 	return;
 }
 
-void populate(CList* list, const void** data, int data_size)
+void populate(CList* list, int data[], int data_size)
 {
 	if (data == NULL) { return; }
 	for (int element = data_size-1; element >= 0; element = element - 1)
 	{
-		clist_insert_next(list, NULL, data[element]);
+		clist_insert_next(list, list->head, (const void*)&data[element]);
 	}
 }
 
@@ -65,7 +65,7 @@ void test_clist_init(void (*destroy)(void *data))
 	}
 
 	teardown(lists);
-	printf("\ttest_clist_init: complete\n");
+	printf("\ttest_clist_init:\tcomplete\n");
 }
 
 void test_clist_insert_next()
@@ -82,17 +82,56 @@ void test_clist_insert_next()
 	EQ(list->size, 1, "");
 
 	retvals[1] = clist_insert_next(list, list->head, (const void*)&data[1]);
-	printf("\t%p : %p\n", list->head->next->data, (void*)&data[1]);
-	//EQ(list->head->next->data, (void*)&data[1], "");
+	EQ(list->head->next->data, (void*)&data[1], "");
 	EQ(list->head->next->next, list->head, "");
 	EQ(list->size, 2, "");
 
 	teardown(lists);
-	printf("\ttest_clist_insert_next: complete\n");
+	printf("\ttest_clist_insert_next:\tcomplete\n");
 }
 
-int test_clist_remove_next(CList* list, CListElmt* element, void** data);
-void test_clist_destroy(CList* list);
+void test_clist_remove_next()
+{
+	CList** lists = setup();
+	initialize(lists, NULL);
+
+	void* container = NULL;
+	int data[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+	int data2[1] = {1};
+
+	populate(lists[1], data, 10);
+	populate(lists[2], data2, 1);
+
+	EQ(clist_remove_next(lists[0], lists[0]->head, &container), -1, "");
+	EQ(clist_remove_next(lists[1], lists[1]->head, &container), 0, "");
+	EQ(clist_remove_next(lists[1], lists[1]->head, &container), 0, "");
+
+	teardown(lists);
+	printf("\ttest_clist_remove_next:\tcomplete\n");
+}
+void test_clist_destroy()
+{
+	CList** lists = setup();
+	initialize(lists, NULL);
+
+	void* container = NULL;
+	int data[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+	int data2[1] = {1};
+
+	populate(lists[1], data, 10);
+	populate(lists[2], data2, 1);
+
+	for (int sample = 0; sample < SAMPLES; sample++)
+	{
+		clist_destroy(lists[sample]);	
+
+		EQ(lists[sample]->size, 0, "");
+		EQ(lists[sample]->head, NULL, "");
+	}
+
+	teardown(lists);
+	printf("\ttest_clist_remove_next:\tcomplete\n");
+}
 
 
 int main() 
@@ -100,6 +139,8 @@ int main()
 	printf("TEST: Circular Linked Lists\n");
 	test_clist_init(NULL);
 	test_clist_insert_next();
+	test_clist_remove_next();
+	test_clist_destroy();
 	printf("\n");
 
 	return 0; 

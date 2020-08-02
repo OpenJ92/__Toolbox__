@@ -1,17 +1,17 @@
 # -*- Makefile -*-
-test: libraries
+lib: libraries
 	gcc libHT.a libSQ.a libLL.a libHQ.a libTR.a main.c -o run.o
 
 ## TESTS ##
-TESTALL: TESTLL TESTCLL
-	./TESTCLL
-	./TESTLL
+tests: ll.test cll.test
+	./ll.test
+	./cll.test
 
-TESTLL: test_linkedlist.o
-	gcc -g -o TESTLL linkedlist.o test_linkedlist.o 
+ll.test: test_linkedlist.o
+	gcc -g -o ll.test linkedlist.o test_linkedlist.o 
 
-TESTCLL: test_cirularsinglylinkedlist.o
-	gcc -g -o TESTCLL cirularsinglylinkedlist.o test_cirularsinglylinkedlist.o
+cll.test: test_cirularsinglylinkedlist.o
+	gcc -g -o cll.test cirularsinglylinkedlist.o test_cirularsinglylinkedlist.o
 
 ## LIBRARIES ##
 libraries: StacksQueues LinkedLists HashTables Trees HeapsPriorityQueues Graph
@@ -93,4 +93,4 @@ test_cirularsinglylinkedlist.o: cirularsinglylinkedlist.o
 
 ## UTILITY ##
 clean:
-	rm *.o; rm *.a
+	rm *.o; rm *.a; rm *.test

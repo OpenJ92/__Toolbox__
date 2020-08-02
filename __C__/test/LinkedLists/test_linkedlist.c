@@ -3,8 +3,6 @@
 
 #define SAMPLES 3
 
-// setup lists
-void setup_tests();
 List** setup(void) 
 { 
 	List** lists; 
@@ -24,7 +22,6 @@ List** setup(void)
 	return lists; 
 }
 
-// destroy lists
 void teardown(List** lists)
 {
 	for (int sample = 0; sample < SAMPLES; sample++)
@@ -47,12 +44,12 @@ void initialize(List** lists, void (*destroy)(void* data))
 	return;
 }
 
-void populate(List* list, const void** data, int data_size)
+void populate(List* list, int data[], int data_size)
 {
 	if (data == NULL) { return; }
 	for (int element = data_size-1; element >= 0; element = element - 1)
 	{
-		list_insert_next(list, NULL, data[element]);
+		list_insert_next(list, NULL, (const void*)&data[element]);
 	}
 }
 
@@ -112,8 +109,8 @@ void test_list_remove_next(void)
 	int data2[1] = {1};
 
 	populate(lists[0], NULL, 0);
-	populate(lists[1], (const void**)&data, 10);
-	populate(lists[2], (const void**)&data, 1);
+	populate(lists[1], data, 10);
+	populate(lists[2], data2, 1);
 
 	EQ(list_remove_next(lists[0], NULL, &container), -1, "");
 	EQ(list_remove_next(lists[1], NULL, &container), 0, "");
@@ -132,8 +129,8 @@ void test_list_destroy(void)
 	int data[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 	int data2[1] = {1};
 	populate(lists[0], NULL, 0);
-	populate(lists[1], (const void**)&data, 10);
-	populate(lists[2], (const void**)&data2, 1);
+	populate(lists[1], data, 10);
+	populate(lists[2], data2, 1);
 
 	for (int sample = 0; sample < SAMPLES; sample++)
 	{
