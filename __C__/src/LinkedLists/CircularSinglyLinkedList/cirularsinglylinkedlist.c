@@ -54,7 +54,7 @@ int clist_insert_next(CList* list, CListElmt* element, const void* data)
 	{
 		// assign next to self
 		new_element->next = new_element;
-		// indicate to list object that this
+		// indicate to list struct that this
 		// is the head.
 		list->head = new_element;
 	}
@@ -92,5 +92,3 @@ int clist_remove_next(CList* list, CListElmt* element, void** data)
 	}
 	free(old_element); list->size--; return 0;
 }
-
-int main(){ return 0; }
