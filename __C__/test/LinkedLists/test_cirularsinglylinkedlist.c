@@ -104,7 +104,6 @@ void test_clist_remove_next()
 
 	EQ(clist_remove_next(lists[0], lists[0]->head, &container), -1, "");
 	EQ(clist_remove_next(lists[1], lists[1]->head, &container), 0, "");
-	EQ(clist_remove_next(lists[1], lists[1]->head, &container), 0, "");
 
 	teardown(lists);
 	printf("\ttest_clist_remove_next:\tcomplete\n");
