@@ -4,6 +4,7 @@ module BatchedQueue (BatchedQueue) where
   import Queue
 
   data BatchedQueue a = BQ [a] [a]
+    deriving (Show)
 
   check :: [a] -> [a] -> BatchedQueue a
   check [] r = BQ (reverse r) []
@@ -26,3 +27,6 @@ module BatchedQueue (BatchedQueue) where
     tail :: BatchedQueue a -> BatchedQueue a
     tail (BQ [] _) = error "empty queue" 
     tail (BQ (x:f) r) = check f r
+
+  instance Functor BatchedQueue where
+    fmap g (BQ f r) = BQ (fmap g f) (fmap g r)
