@@ -51,6 +51,7 @@ void populate(List* list, int data[], int data_size)
 	{
 		list_insert_next(list, NULL, (const void*)&data[element]);
 	}
+	return;
 }
 
 void test_list_init(void (*destroy)(void* data))

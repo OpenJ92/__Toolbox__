@@ -25,8 +25,14 @@ void dlist_destroy(DList* list)
 int dlist_insert_next(DList* list, DListElmt* element, const void* data)
 {
 	DListElmt* new_element;
-	if (element == NULL && dlist_size(list) != 0){ return -1; }
-	if ((new_element = (DListElmt*)malloc(sizeof(DListElmt))) == NULL){ return -1; }
+	if (element == NULL && dlist_size(list) != 0)
+	{ 
+		return -1; 
+	}
+	if ((new_element = (DListElmt*)malloc(sizeof(DListElmt))) == NULL)
+	{ 
+		return -1; 
+	}
 
 	new_element->data = (void*)data;
 

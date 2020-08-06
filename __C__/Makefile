@@ -6,12 +6,16 @@ lib: libraries
 tests: ll.test cll.test
 	./ll.test
 	./cll.test
+	./dll.test
 
 ll.test: test_linkedlist.o
 	gcc -g -o ll.test linkedlist.o test_linkedlist.o 
 
 cll.test: test_cirularsinglylinkedlist.o
 	gcc -g -o cll.test cirularsinglylinkedlist.o test_cirularsinglylinkedlist.o
+
+dll.test: test_doublylinkedlist.o
+	gcc -g -o dll.test doublylinkedlist.o test_doublylinkedlist.o
 
 ## LIBRARIES ##
 libraries: StacksQueues LinkedLists HashTables Trees HeapsPriorityQueues Graph
@@ -90,6 +94,9 @@ test_linkedlist.o: linkedlist.o
 
 test_cirularsinglylinkedlist.o: cirularsinglylinkedlist.o
 	gcc test/LinkedLists/test_cirularsinglylinkedlist.c -c
+
+test_doublylinkedlist.o: doublylinkedlist.o
+	gcc test/LinkedLists/test_doublylinkedlist.c -c
 
 ## UTILITY ##
 clean:
