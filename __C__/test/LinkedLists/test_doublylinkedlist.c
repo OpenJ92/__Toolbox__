@@ -1,5 +1,7 @@
 #include "test_doublylinkedlist.h"
 
+#include <stdio.h>
+
 #define SAMPLES 3
 
 DList** setup(void) 
@@ -50,5 +52,6 @@ void populate(DList* list, int data[], int data_size)
 
 int main()
 {
+	printf("TEST: Doubly Linked Lists\n");
 	return 0;
 }

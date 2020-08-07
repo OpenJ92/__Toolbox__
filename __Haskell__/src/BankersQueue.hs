@@ -4,6 +4,7 @@ module BankersQueue (BankersQueue) where
   import Queue
 
   data BankersQueue a = BQ Int [a] Int [a]
+    deriving (Show)
 
   check :: Int -> [a] -> Int -> [a] -> BankersQueue a
   check lenf f lenr r | lenf >= lenr = BQ lenf f lenr r
@@ -26,3 +27,6 @@ module BankersQueue (BankersQueue) where
     tail :: BankersQueue a -> BankersQueue a
     tail (BQ lenf [] lenr r) = error "empty queue"
     tail (BQ lenf (x:f) lenr r) = BQ (lenf - 1) f lenr r
+
+  instance Functor BankersQueue where
+    fmap g (BQ lenf f lenr r) = BQ lenf (fmap g f) lenf (fmap g r)

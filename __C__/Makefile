@@ -3,10 +3,8 @@ lib: libraries
 	gcc libHT.a libSQ.a libLL.a libHQ.a libTR.a main.c -o run.o
 
 ## TESTS ##
-tests: ll.test cll.test
-	./ll.test
-	./cll.test
-	./dll.test
+tests: ll.test cll.test dll.test
+	./ll.test;./cll.test;./dll.test;
 
 ll.test: test_linkedlist.o
 	gcc -g -o ll.test linkedlist.o test_linkedlist.o 
