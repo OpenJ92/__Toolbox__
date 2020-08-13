@@ -34,10 +34,13 @@ Trees: binarytree.o bistree.o traverse.o
 HeapsPriorityQueues: heap.o # priorityqueue.o
 	ar -cvq libHQ.a heap.o # priorityqueue.o
 
-Graph: graph.o bfs.o
-	ar -cvq libGR.a graph.o bfs.o
+Graph: graph.o bfs.o dfs.o
+	ar -cvq libGR.a graph.o bfs.o dfs.o
 
 ## IMPLEMENTATION LEAVES ##
+dfs.o: graph.o linkedlist.o
+	gcc src/Graph/dfs.c -c
+
 bfs.o: graph.o linkedlist.o
 	gcc src/Graph/bfs.c -c
 

@@ -9,9 +9,14 @@
 typedef OHTbl DivDiffTable;
 typedef List Polynomial;
 
+typedef struct DivDiff_
+{
+	int id;
+	double divdiff;
+}
+
 typedef struct NewtonPolyForm_
 {
-	void* id;
 	int exponent;
 	double coeff;
 	double* samples;
@@ -19,7 +24,6 @@ typedef struct NewtonPolyForm_
 
 typedef struct StandardForm_
 {
-	void* id;
 	int exponent;
 	double coeff;
 } StandardForm;

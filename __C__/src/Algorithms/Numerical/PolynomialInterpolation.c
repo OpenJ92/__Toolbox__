@@ -47,7 +47,6 @@ int interpol
 		term->exponent = sample;
 		term->coeff = coeff;
 		term->samples = x;
-		term->id = (void*)(x + sample);
 
 		if (list_insert_next(poly, NULL, (const void*)term) == -1)
 		{
