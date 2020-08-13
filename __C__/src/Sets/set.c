@@ -20,7 +20,10 @@ int set_is_member(Set* set, const void* data)
 
 int set_insert(Set* set, const void* data)
 { 
-	if (set_is_member(set, data)){ return 1; }
+	if (set_is_member(set, data))
+	{ 
+		return 1; 
+	}
 	return list_insert_next(set, set->tail, data);
 }
 

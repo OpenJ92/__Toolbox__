@@ -12,10 +12,14 @@ int chtbl_init(CHTbl* chtbl, int buckets, int (*h)(const void* key),
 	chtbl->table = NULL;
 
 	if ((chtbl->table = (List*)malloc(sizeof(List) * buckets)) == NULL)
-	{ return -1; }
+	{ 
+		return -1; 
+	}
 
 	for (int key = 0; key < buckets; key++)
-	{ list_init(&chtbl->table[key], destroy); }
+	{ 
+		list_init(&chtbl->table[key], destroy); 
+	}
 
 	return 0;
 }
@@ -27,13 +31,17 @@ int chtbl_insert(CHTbl* chtbl, const void* data)
 
 	if (chtbl_lookup(chtbl, &temp) == 0){ return 1; }
 	if ((retval = list_insert_next(&chtbl->table[key], NULL, data)) == 0 )
-	{ chtbl->size++; }
+	{ 
+		chtbl->size++; 
+	}
 	return retval;
 }
 
 int chtbl_lookup(CHTbl* chtbl, void** data)
 { 
-	int key = chtbl->h(*data) % chtbl->buckets; List* local = chtbl->table + key;
+	int key = chtbl->h(*data) % chtbl->buckets; 
+	List* local = chtbl->table + key;
+
 	for (ListElmt* member = local->head; member != NULL; member=list_next(member))
 	{
 		if ((chtbl->match(member->data, *data)) == 0)
@@ -69,7 +77,10 @@ int chtbl_remove(CHTbl* chtbl, void** data)
 
 void chtbl_destroy(CHTbl* chtbl)
 { 
-	if (chtbl->destroy == NULL){ return; } 
+	if (chtbl->destroy == NULL)
+	{ 
+		return;
+	} 
 
 	int bucket;
 	for (bucket = 0; bucket < chtbl->buckets; bucket++)
