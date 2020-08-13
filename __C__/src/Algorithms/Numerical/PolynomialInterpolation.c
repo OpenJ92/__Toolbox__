@@ -2,15 +2,17 @@
 
 int hash_one(double* x) { }
 int hash_two(double* x) { }
-int match_coeff(){}
+int match_coeff(const void* key1, const void* key2){}
 
 // Produce the divided difference table given observation and populate 
 // a Newton Polynomial with the appropriate coefficents.
 
 double divided_difference(const double* x, const double* fx, int size, DivDiffTable* ddt)
 {
-	int retval = ddt_lookup(ddt, (void**)&x);
-	if (retval == 0) { return x; }	
+	if (size == 0){ return 0; }
+	const double* container = x;
+	int retval = ddt_lookup(ddt, (void**)&container);
+	if (retval == 0) { return container; }	
 
 	double num = divided_difference(x, fx, size-1, ddt) +
 	       	     divided_difference(x+1, fx+1, size-1, ddt)
@@ -37,19 +39,16 @@ int interpol
 
 		if ((term = (NewtonPolyForm*)malloc(sizeof(NewtonPolyForm))) == NULL)
 		{
-			chtbl_destroy(ddt);
-			list_destroy(poly);k
 			return -1;
 		}
 
 		term->exponent = sample;
 		term->coeff = coeff;
 		term->samples = x;
+		term->id = (void*)(x + sample);
 
 		if (list_insert_next(poly, NULL, (const void*)term) == -1)
 		{
-			chtbl_destroy(ddt);
-			list_destroy(poly);k
 			return -1;
 		}
 	}
