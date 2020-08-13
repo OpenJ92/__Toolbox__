@@ -10,7 +10,7 @@ int match_coeff(const void* key1, const void* key2){}
 double divided_difference(const double* x, const double* fx, int size, DivDiffTable* ddt)
 {
 	if (size == 0){ return 0; }
-	const double* container = x;
+	double* container = (double*)x;
 	int retval = ddt_lookup(ddt, (void**)&container);
 	if (retval == 0) { return container; }	
 
@@ -18,16 +18,18 @@ double divided_difference(const double* x, const double* fx, int size, DivDiffTa
 	       	     divided_difference(x+1, fx+1, size-1, ddt)
 	double dem = x[size] - x[0]
 
+	// we need to construct a ddt node with an derived id so
+	// we can look up the calculated coeff. ie.
+	// 	ddt_lookup(hash((void**)&container))
+	// or write a new lookup function.
 	ddt_insert(ddt, (const void*)(num/dem));
 	return num/dem;
 }
 
 int interpol
 (
-	const double* x, 
-	const double* fx, 
-	int size, 
-	Polynomial* poly
+	const double* x, const double* fx, 
+	int size, Polynomial* poly
 )
 {
 	DivDiffTable ddt; ddt_init(ddt,hash_one,hash_two);
