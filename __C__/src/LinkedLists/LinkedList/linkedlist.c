@@ -88,7 +88,6 @@ int list_insert_next(List* list, ListElmt* element, const void* data)
 
 	list->size++; return 0;
 }
-
 void list_destroy(List* list)
 /* The list_destroy operation destroys a linked list. Primarily this means
  * removing all elements from the list. The function passed as destroy to

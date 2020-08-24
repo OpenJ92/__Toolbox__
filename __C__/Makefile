@@ -7,7 +7,7 @@ tests: ll.test cll.test dll.test
 	./ll.test;./cll.test;./dll.test;
 
 ll.test: test_linkedlist.o
-	gcc -g -o ll.test linkedlist.o test_linkedlist.o 
+	gcc -o ll.test linkedlist.o test_linkedlist.o
 
 cll.test: test_cirularsinglylinkedlist.o
 	gcc -g -o cll.test cirularsinglylinkedlist.o test_cirularsinglylinkedlist.o
@@ -87,6 +87,9 @@ cirularsinglylinkedlist.o:
 
 doublylinkedlist.o:
 	gcc src/LinkedLists/DoublyLinkedList/doublylinkedlist.c -c
+
+## ALGO TREE ##
+PolyInterpolation.o: linked_list.o chainedhashtable.o
 
 ## TEST LEAVES ##
 

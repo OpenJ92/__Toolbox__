@@ -7,15 +7,24 @@ int match_coeff(const void* key1, const void* key2){}
 // Produce the divided difference table given observation and populate 
 // a Newton Polynomial with the appropriate coefficents.
 
-double divided_difference(const double* x, const double* fx, int size, DivDiffTable* ddt)
+double divided_difference
+(
+ 	const double* x,
+ 	const double* fx,
+ 	int size, 
+	DivDiffTable* ddt
+)
 {
 	if (size == 0){ return 0; }
+
 	double* container = (double*)x;
 	int retval = ddt_lookup(ddt, (void**)&container);
+	
 	if (retval == 0) { return container; }	
 
-	double num = divided_difference(x, fx, size-1, ddt) +
-	       	     divided_difference(x+1, fx+1, size-1, ddt)
+	double num = 
+		divided_difference(x, fx, size-1, ddt) +
+	       	divided_difference(x+1, fx+1, size-1, ddt)
 	double dem = x[size] - x[0]
 
 	// we need to construct a ddt node with an derived id so

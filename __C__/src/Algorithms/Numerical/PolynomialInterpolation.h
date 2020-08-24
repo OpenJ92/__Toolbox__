@@ -6,13 +6,29 @@
 
 // Think about using a chained hash table. We'll know
 // at calling time the size needed for the table. at most
+typedef enum Polytype
+{
+	NewtonPoly,
+	StandardPoly,
+} Polytype;
+
+typedef struct Poly_
+{
+	Polytype pt;
+	List* terms;
+} Poly;
+
 typedef OHTbl DivDiffTable;
-typedef List Polynomial;
 
 typedef struct DivDiff_
 {
 	int id;
 	double divdiff;
+}
+
+typedef struct DDNode_
+{
+	double divdiff; 
 }
 
 typedef struct NewtonPolyForm_
