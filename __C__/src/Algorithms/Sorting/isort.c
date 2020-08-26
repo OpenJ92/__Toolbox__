@@ -37,4 +37,3 @@ int issort(void* data, int size, int esize, int (*compare)(const void * key1, co
 // 
 // int[5] ints = {5,4,3,2,1};
 // issort((void *)ints, 5, sizeof(int), compare_int);
-
