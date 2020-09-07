@@ -19,12 +19,19 @@ static int compare_int(const void* int1, const void* int2)
 	}
 }
 
-static int partition(void * data, int esize, int i, int k, int (*compare)(const void* key1, const void* key2))
+static int partition
+(
+ 	void * data, 
+	int esize, 
+	int i, 
+	int k, 
+	int (*compare)(const void* key1, const void* key2)
+)
 {
 	char * a = data;
 
-	void * pval;
-	void * temp;
+	void * pval; // partition value
+	void * temp; // storage for swapping. 
 
 	if ((pval = malloc(esize)) == NULL) { return -1 }
 	if ((temp = malloc(esize)) == NULL) { free(pval); return -1; }
@@ -68,14 +75,20 @@ static int partition(void * data, int esize, int i, int k, int (*compare)(const 
 	return k;
 }
 
-int qksort(void * data, int size, int esize, int i, int k, int (*compare)(const void * key1, const void * key2))
+int qksort
+(
+ 	void * data, 
+	int size, 
+	int esize, 
+	int i, 
+	int k, 
+	int (*compare)(const void * key1, const void * key2)
+)
 {
 	int j;
 
 	while (i < k)
 	{
-		// this is a really interesting way of hiting both partitions. 
-		// Definitely spend some time writing a blob post 
 		if ((j = partition(data, esize, i, k, compare)) == NULL) { return -1; }
 		if (qksort(data, size, esize, i, j, compare) < 0) { return -1; }
 		i = j + 1;
