@@ -26,27 +26,28 @@ module BinaryTree (BinaryTree) where
     | x == x' = bt
 
   rotate :: BinaryTree a -> BinaryTree a
-  rotate (BT (BT (BT _ x'' _) x' _) x _) = undefined -- Note x < x'  < x''
-  --     x
-  --    /
-  --   x'
-  --  /
-  -- x''
-  rotate (BT (BT _ x' (BT _ x'' _)) x _) = undefined -- Note x < x'' < x'
-  --   x
-  --  /
-  -- x'
-  --  \
-  --   x''
-  rotate (BT _ x (BT (BT _ x'' _) x' _)) = undefined -- Note x > x'  > x''
-  --   x
-  --    \
-  --     x'
-  --    /
-  --   x''
-  rotate (BT _ x (BT _ x' (BT _ x'' _))) = undefined -- Note x > x'' > x'
-  -- x
-  --  \
-  --   x'
-  --    \ 
-  --     x''
+  rotate (BT (BT (BT E x'' E) x' E) x E) = undefined -- Note x < x'  < x''
+  --     x           x'  
+  --    / \         / \  
+  --   x'  E  ->   x'' x   
+  --  / \         / \ / \
+  -- x'' E       E  E E  E
+  rotate (BT (BT E x' (BT E x'' E)) x E) = undefined -- Note x < x'' < x'
+  --     x            x            x''
+  --    / \          / \          / \
+  --   x'  E  ->    x'' E  ->    x'  x
+  --  / \          / \          / \ / \
+  -- E   x''      x'  E        E  E E  E
+  rotate (BT E x (BT (BT E x'' E) x' E)) = undefined -- Note x > x'  > x''
+  --   x            x               x''
+  --  / \          / \             / \
+  -- E   x'   ->  E   x''   ->    x   x'
+  --    / \          / \         / \ / \
+  --   x'' E        E   x'      E  E E  E
+  rotate (BT E x (BT E x' (BT _ x'' _))) = undefined -- Note x > x'' > x'
+  --   x              x'
+  --  / \            / \
+  -- E   x'     ->  x   x''
+  --    / \        / \ / \ 
+  --   E   x''    E  E E  E 
+  rotate bintree                         = bintree
