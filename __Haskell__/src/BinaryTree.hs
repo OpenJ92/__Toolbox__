@@ -55,3 +55,7 @@ module BinaryTree (BinaryTree) where
   --      / \      / \ / \ 
   --     E   x''  E  E E  E 
   rotate bintree                         = bintree
+
+  -- balance :: BinaryTree a -> BinaryTree a
+  -- balance bt@(BT E _ E) = bt
+  -- balance bt = rotate . balance $ bt
