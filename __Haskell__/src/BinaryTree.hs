@@ -27,6 +27,26 @@ module BinaryTree (BinaryTree) where
 
   rotate :: BinaryTree a -> BinaryTree a
   rotate (BT (BT (BT _ x'' _) x' _) x _) = undefined -- Note x < x'  < x''
+  --     x
+  --    /
+  --   x'
+  --  /
+  -- x''
   rotate (BT (BT _ x' (BT _ x'' _)) x _) = undefined -- Note x < x'' < x'
+  --   x
+  --  /
+  -- x'
+  --  \
+  --   x''
   rotate (BT _ x (BT (BT _ x'' _) x' _)) = undefined -- Note x > x'  > x''
+  --   x
+  --    \
+  --     x'
+  --    /
+  --   x''
   rotate (BT _ x (BT _ x' (BT _ x'' _))) = undefined -- Note x > x'' > x'
+  -- x
+  --  \
+  --   x'
+  --    \ 
+  --     x''
