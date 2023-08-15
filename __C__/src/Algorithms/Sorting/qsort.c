@@ -11,7 +11,7 @@ static int compare_int(const void* int1, const void* int2)
 	}
 	if (*(const int *)int1 < *(const int*)int2)
 	{
-		return 1;
+		return -1;
 	}
 	else
 	{
