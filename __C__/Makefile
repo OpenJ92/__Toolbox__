@@ -92,7 +92,6 @@ doublylinkedlist.o:
 PolyInterpolation.o: linked_list.o chainedhashtable.o
 
 ## TEST LEAVES ##
-
 test_linkedlist.o: linkedlist.o
 	gcc test/LinkedLists/test_linkedlist.c -c
 
@@ -104,4 +103,5 @@ test_doublylinkedlist.o: doublylinkedlist.o
 
 ## UTILITY ##
 clean:
-	rm *.o; rm *.a; rm *.test
+	rm *.o; rm *.a; rm *.test;
+

@@ -108,7 +108,8 @@ int set_difference(Set* setd, Set* set1, Set* set2)
 }
 
 int set_is_subset(const Set* set1, const Set* set2)
-{ if (set1->size != set2->size) { return 0; }
+{ 
+	if (set1->size != set2->size) { return 0; }
 
 	ListElmt* member;
 	for (member = set1->head; member != NULL; member = member->next)
