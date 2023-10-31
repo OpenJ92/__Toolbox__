@@ -28,13 +28,3 @@ int issort(void* data, int size, int esize, int (*compare)(const void * key1, co
 	free(key);
 	return 0;
 }
-
-// example usage:
-// int compare_int(const void * key1, const void* key2)
-// {
-// 	return (*int)key1 > (*int)key2 ? 1 : 0;
-// }
-// 
-// int[5] ints = {5,4,3,2,1};
-// issort((void *)ints, 5, sizeof(int), compare_int);
-

@@ -1,4 +1,5 @@
 {-# LANGUAGE InstanceSigs #-}
+
 module BatchedQueue (BatchedQueue) where
   import Prelude hiding (head, tail)
   import Queue
@@ -30,3 +31,4 @@ module BatchedQueue (BatchedQueue) where
 
   instance Functor BatchedQueue where
     fmap g (BQ f r) = BQ (fmap g f) (fmap g r)
+

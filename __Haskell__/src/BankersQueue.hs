@@ -1,4 +1,6 @@
 {-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE RankNTypes #-}
+
 module BankersQueue (BankersQueue) where
   import Prelude hiding (head, tail)
   import Queue
@@ -14,7 +16,7 @@ module BankersQueue (BankersQueue) where
     empty :: BankersQueue a
     empty = BQ 0 [] 0 []
 
-    isEmpty :: BankersQueue a -> Bool
+    isEmpty :: forall a. BankersQueue a -> Bool
     isEmpty (BQ lenf f lenr r) = (lenf == 0)
 
     snoc :: BankersQueue a -> a -> BankersQueue a
@@ -28,5 +30,4 @@ module BankersQueue (BankersQueue) where
     tail (BQ lenf [] lenr r) = error "empty queue"
     tail (BQ lenf (x:f) lenr r) = BQ (lenf - 1) f lenr r
 
-  instance Functor BankersQueue where
     fmap g (BQ lenf f lenr r) = BQ lenf (fmap g f) lenf (fmap g r)

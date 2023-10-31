@@ -1,4 +1,4 @@
-# -*- Makefile -*-
+# -*- Makefile -*- 
 lib: libraries
 	gcc libHT.a libSQ.a libLL.a libHQ.a libTR.a main.c -o run.o
 
